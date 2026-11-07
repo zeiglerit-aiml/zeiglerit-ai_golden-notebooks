@@ -1,17 +1,23 @@
 # Golden Jupyter Notebook Collection
 
-This repository currently stores the notebook collection as a single archive:
+A collection of reusable notebooks and hands-on ML demonstrations.
 
-- `zeigler-jupyter-notebook-collection.zip`
+## Tracked notebooks
 
-The archive is retained as a packaged artifact; individual notebooks are not currently tracked as separate files on the default branch. GitHub Actions verifies ZIP integrity only. It does not execute notebooks or certify their dependencies, data sources, or outputs.
+- `notebooks/exploratory_end_to_end_ml_pipeline.ipynb` — end-to-end exploratory machine-learning and model-serving pipeline demonstration, including prediction and related use cases.
+
+## Packaged collection
+
+- `zeigler-jupyter-notebook-collection.zip` — original packaged notebook collection, retained unchanged.
+
+The ZIP is retained as a packaged artifact; its individual contents have not yet been extracted into the tracked notebook tree. GitHub Actions verifies ZIP integrity and validates tracked notebook JSON structure. It does not execute notebooks or certify dependencies, data sources, or outputs.
 
 ## Inspect locally
 
 ```bash
 unzip -l zeigler-jupyter-notebook-collection.zip
-mkdir notebooks
-unzip -q zeigler-jupyter-notebook-collection.zip -d notebooks
+mkdir -p notebooks
+unzip -q zeigler-jupyter-notebook-collection.zip -d notebooks/archive
 ```
 
 Before running a notebook, inspect its cells for external downloads, credentials, destructive commands, and package installation steps. Use a clean virtual environment and trusted datasets.
