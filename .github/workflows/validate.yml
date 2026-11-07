@@ -1,0 +1,18 @@
+name: validate-notebook-archive
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify ZIP integrity
+        run: unzip -t zeigler-jupyter-notebook-collection.zip
