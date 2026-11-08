@@ -21,3 +21,9 @@ unzip -q zeigler-jupyter-notebook-collection.zip -d notebooks/archive
 ```
 
 Before running a notebook, inspect its cells for external downloads, credentials, destructive commands, and package installation steps. Use a clean virtual environment and trusted datasets.
+
+## Portfolio ownership
+
+Canonical home for maintained notebook source. Packaged ZIPs are archival snapshots until extracted, reviewed, and validated.
+
+Account-wide ownership and cleanup decisions are maintained in the [WSP portfolio repository catalog](https://github.com/zeiglerit-aiml/WSP_Integrated_AI_SDLC_GVC_pl/blob/main/REPOSITORY_CATALOG.md).
