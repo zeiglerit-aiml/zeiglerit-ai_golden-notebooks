@@ -5,6 +5,7 @@ A collection of reusable notebooks and hands-on ML demonstrations.
 ## Tracked notebooks
 
 - `notebooks/exploratory_end_to_end_ml_pipeline.ipynb` — end-to-end exploratory machine-learning and model-serving pipeline demonstration, including prediction and related use cases.
+- `notebooks/ml_landscape_all.ipynb` — interactive-style ML landscape reference covering supervised, unsupervised, semi-supervised, self-supervised, reinforcement, deep-learning, ensemble, and statistical-learning methods, with compact runnable examples.
 
 ## Packaged collection
 
