@@ -80,4 +80,25 @@ jobs:
                           raise SystemExit(f"Example failed: {family}/{name}: {exc}") from exc
                   total += 1
           print(f"Smoke-tested {total} catalog examples across {len(catalog)} independent selectors.")
+
+          # Execute the eight neural-network demo builders from the interactive menu.
+          nn_path = Path("ml_nn_ai_tour.ipynb")
+          nn_notebook = json.loads(nn_path.read_text(encoding="utf-8"))
+          menu_cell = next(
+              ("".join(cell.get("source", [])) for cell in nn_notebook["cells"]
+               if cell["cell_type"] == "code" and "NN_ARCHITECTURES =" in "".join(cell.get("source", []))),
+              None,
+          )
+          if menu_cell is None:
+              raise SystemExit("Eight-architecture interactive menu not found")
+          import contextlib
+          import io
+          menu_namespace = {}
+          with contextlib.redirect_stdout(io.StringIO()):
+              exec(compile(menu_cell, str(nn_path), "exec"), menu_namespace)
+              for name, (purpose, builder) in menu_namespace["NN_ARCHITECTURES"].items():
+                  model, summary = builder()
+                  if not summary or not list(model.parameters()):
+                      raise SystemExit(f"Neural-network demo failed validation: {name}")
+          print("Smoke-tested all eight neural-network architecture builders.")
           PY
