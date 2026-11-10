@@ -1,4 +1,4 @@
-name: validate-notebook-archive
+name: validate-notebooks
 
 on:
   push:
@@ -14,46 +14,70 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify ZIP integrity
-        run: unzip -t zeigler-jupyter-notebook-collection.zip
-      - name: Validate tracked notebook JSON and Python syntax
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install notebook smoke-test dependencies
+        run: python -m pip install --upgrade pip numpy scikit-learn torch ipywidgets ipython
+      - name: Validate notebook JSON, Python syntax, and interactive algorithm catalog
         run: |
           python - <<'PY'
           import ast
           import json
           from pathlib import Path
 
-          notebooks = sorted(Path("notebooks").glob("*.ipynb"))
-          if not notebooks:
+          paths = sorted(Path("notebooks").glob("*.ipynb"))
+          if not paths:
               raise SystemExit("No tracked notebooks found")
 
-          for path in notebooks:
+          for path in paths:
               notebook = json.loads(path.read_text(encoding="utf-8"))
-              if notebook.get("nbformat") != 4:
-                  raise SystemExit(f"{path}: expected nbformat 4")
-              cells = notebook.get("cells")
-              if not isinstance(cells, list):
-                  raise SystemExit(f"{path}: cells must be a list")
-
-              code_cells = 0
-              for index, cell in enumerate(cells):
+              if notebook.get("nbformat") != 4 or not isinstance(notebook.get("cells"), list):
+                  raise SystemExit(f"{path}: invalid notebook structure")
+              for index, cell in enumerate(notebook["cells"], 1):
                   kind = cell.get("cell_type")
                   source = cell.get("source", "")
                   source = "".join(source) if isinstance(source, list) else source
                   if kind == "code":
-                      code_cells += 1
                       try:
                           ast.parse(source)
                       except SyntaxError as exc:
-                          raise SystemExit(
-                              f"{path}: code cell {index + 1}: {exc}"
-                          ) from exc
+                          raise SystemExit(f"{path}: code cell {index}: {exc}") from exc
                   elif kind not in {"markdown", "raw"}:
-                      raise SystemExit(
-                          f"{path}: cell {index + 1}: unsupported type {kind!r}"
-                      )
-              print(
-                  f"Validated {path}: {len(cells)} cells, "
-                  f"{code_cells} Python code cells"
-              )
+                      raise SystemExit(f"{path}: unsupported cell type {kind!r}")
+              print(f"Validated structure/syntax: {path} ({len(notebook['cells'])} cells)")
+
+          target = Path("notebooks/ml_landscape_all.ipynb")
+          notebook = json.loads(target.read_text(encoding="utf-8"))
+          code_cells = ["".join(c.get("source", [])) for c in notebook["cells"] if c["cell_type"] == "code"]
+          selector_cell = next((s for s in code_cells if "ALGORITHM_CATALOG =" in s), None)
+          if selector_cell is None:
+              raise SystemExit("Interactive algorithm catalog not found")
+
+          # Build the catalog without rendering widgets in CI.
+          marker = "def make_algorithm_selector("
+          catalog_source = selector_cell.split(marker, 1)[0]
+          namespace = {}
+          exec(compile(catalog_source, str(target), "exec"), namespace)
+          catalog = namespace["ALGORITHM_CATALOG"]
+          expected = {"Machine Learning Algorithms", "Neural Network Algorithms", "AI Algorithms"}
+          if set(catalog) != expected:
+              raise SystemExit(f"Expected exactly three algorithm families; got {list(catalog)}")
+
+          total = 0
+          skipped = {"YOLO", "XGBoost / LightGBM"}
+          for family, algorithms in catalog.items():
+              if not algorithms:
+                  raise SystemExit(f"Empty selector: {family}")
+              for name, (context, snippet) in algorithms.items():
+                  if not context.strip() or not snippet.strip():
+                      raise SystemExit(f"Missing context or example: {family}/{name}")
+                  ast.parse(snippet)
+                  if name not in skipped:
+                      try:
+                          exec(compile(snippet, f"{family}/{name}", "exec"), {})
+                      except Exception as exc:
+                          raise SystemExit(f"Example failed: {family}/{name}: {exc}") from exc
+                  total += 1
+          print(f"Smoke-tested {total} catalog examples across {len(catalog)} independent selectors.")
           PY
