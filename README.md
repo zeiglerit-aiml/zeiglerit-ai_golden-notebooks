@@ -1,6 +1,6 @@
 # Colab Notebook Library — 2026-11-10
 
-Included notebooks: 64.
+Included notebooks: 61.
 
 Latest same-title revisions were retained; duplicate copies and superseded revisions were excluded. The source inventory contained 101 notebook files in the ChatGPT Library.
 
@@ -31,18 +31,15 @@ Latest same-title revisions were retained; duplicate copies and superseded revis
 - `Neural_Compute_Fabric_Notebook.ipynb` — 21 cells
 - `Python_Focus_Live_Lab.ipynb` — 33 cells
 - `architecture_compiler.ipynb` — 6 cells
-- `edge_ai_model_compression_optimization_lab.ipynb` — 34 cells
 - `exploratory_end_to_end_ml_pipeline.ipynb` — 45 cells
 - `adaptive_network_walkthrough.ipynb` — 12 cells
 - `adaptive_walkthrough.ipynb` — 11 cells
 - `advanced_distillation_notebook.ipynb` — 19 cells
 - `agentic_multi_model_platform.ipynb` — 25 cells
 - `ahp_algorithm_aware_tensor_permutation_lab.ipynb` — 39 cells
-- `algorithm_standalone.ipynb` — 10 cells
 - `architecture_compiler_standalone.ipynb` — 18 cells
 - `aws_native_ml_pipeline_workbench_deployable.ipynb` — 29 cells
 - `claude_tool_calling_under_the_hood.ipynb` — 25 cells
-- `deep_learning_architecture_explorer.ipynb` — 26 cells
 - `deep_learning_architecture_simulator.ipynb` — 16 cells
 - `deep_neural_scanner.ipynb` — 17 cells
 - `ds_gen_33_use_cases_dropdown.ipynb` — 2 cells
