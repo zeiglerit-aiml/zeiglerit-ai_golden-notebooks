@@ -6,6 +6,7 @@ A collection of reusable notebooks and hands-on ML demonstrations.
 
 - `notebooks/exploratory_end_to_end_ml_pipeline.ipynb` — end-to-end exploratory machine-learning and model-serving pipeline demonstration, including prediction and related use cases.
 - `notebooks/ml_landscape_all.ipynb` — interactive-style ML landscape reference covering supervised, unsupervised, semi-supervised, self-supervised, reinforcement, deep-learning, ensemble, and statistical-learning methods, with compact runnable examples.
+- `notebooks/advanced_ai_algorithms.ipynb` — 12 additional AI algorithm lessons from PPO and A* through MCTS, LSTMs, DNC, alpha-beta pruning, YOLO, GANs, VGG/ResNet, behavior trees, SAC, and self-/cross-attention, with Python examples and production-scope notes.
 
 ## Packaged collection
 
