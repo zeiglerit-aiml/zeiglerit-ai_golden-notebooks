@@ -26,7 +26,7 @@ jobs:
           import json
           from pathlib import Path
 
-          paths = sorted(Path("notebooks").glob("*.ipynb"))
+          paths = sorted(p for p in Path(".").rglob("*.ipynb") if ".git" not in p.parts)
           if not paths:
               raise SystemExit("No tracked notebooks found")
 
@@ -47,7 +47,7 @@ jobs:
                       raise SystemExit(f"{path}: unsupported cell type {kind!r}")
               print(f"Validated structure/syntax: {path} ({len(notebook['cells'])} cells)")
 
-          target = Path("notebooks/ml_landscape_all.ipynb")
+          target = Path("ml_landscape_all.ipynb")
           notebook = json.loads(target.read_text(encoding="utf-8"))
           code_cells = ["".join(c.get("source", [])) for c in notebook["cells"] if c["cell_type"] == "code"]
           selector_cell = next((s for s in code_cells if "ALGORITHM_CATALOG =" in s), None)
