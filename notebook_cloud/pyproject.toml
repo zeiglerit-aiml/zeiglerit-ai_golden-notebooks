@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "notebook-cloud"
+version = "0.1.0"
+description = "Safe-by-default multi-cloud auth and lifecycle helpers for notebooks"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+gcp = ["google-auth>=2.29"]
+aws = ["boto3>=1.34"]
+azure = ["azure-identity>=1.16"]
+oci = ["oci>=2.120"]
+all = ["google-auth>=2.29", "boto3>=1.34", "azure-identity>=1.16", "oci>=2.120"]
