@@ -1,6 +1,6 @@
-# Colab Notebook Library — 2026-11-06
+# Colab Notebook Library — 2026-11-10
 
-Included notebooks: 58.
+Included notebooks: 64.
 
 Latest same-title revisions were retained; duplicate copies and superseded revisions were excluded. The source inventory contained 101 notebook files in the ChatGPT Library.
 
@@ -30,6 +30,9 @@ Latest same-title revisions were retained; duplicate copies and superseded revis
 - `LLM_Training_Tokenization_Framework_Comparison.ipynb` — 19 cells
 - `Neural_Compute_Fabric_Notebook.ipynb` — 21 cells
 - `Python_Focus_Live_Lab.ipynb` — 33 cells
+- `architecture_compiler.ipynb` — 6 cells
+- `edge_ai_model_compression_optimization_lab.ipynb` — 34 cells
+- `exploratory_end_to_end_ml_pipeline.ipynb` — 45 cells
 - `adaptive_network_walkthrough.ipynb` — 12 cells
 - `adaptive_walkthrough.ipynb` — 11 cells
 - `advanced_distillation_notebook.ipynb` — 19 cells
@@ -58,6 +61,9 @@ Latest same-title revisions were retained; duplicate copies and superseded revis
 - `langgraph_mlops_intelligence_training.ipynb` — 14 cells
 - `lora_techniques_lab.ipynb` — 29 cells
 - `loss_standalone.ipynb` — 6 cells
+- `ml_nn_ai_architecture_explorer.ipynb` — 88 cells
+- `ml_nn_ai_tour.ipynb` — 38 cells
+- `neural_network_simulator.ipynb` — 19 cells
 - `ml_landscape_all.ipynb` — 115 cells
 - `ml_llm_compute_graph_full_walkthrough.ipynb` — 34 cells
 - `ml_llm_compute_graph_full_walkthrough_seaborn.ipynb` — 50 cells
