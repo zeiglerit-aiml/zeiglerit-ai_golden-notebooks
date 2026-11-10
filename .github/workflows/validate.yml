@@ -39,8 +39,17 @@ jobs:
                   source = cell.get("source", "")
                   source = "".join(source) if isinstance(source, list) else source
                   if kind == "code":
+                      lines = source.splitlines()
+                      # Jupyter shell/line magics are valid notebook syntax, not Python AST.
+                      if any(line.lstrip().startswith("%%") for line in lines):
+                          print(f"Skipped cell magic: {path} cell {index}")
+                          continue
+                      python_source = "\\n".join(
+                          line for line in lines
+                          if not line.lstrip().startswith(("%", "!"))
+                      )
                       try:
-                          ast.parse(source)
+                          ast.parse(python_source)
                       except SyntaxError as exc:
                           raise SystemExit(f"{path}: code cell {index}: {exc}") from exc
                   elif kind not in {"markdown", "raw"}:
