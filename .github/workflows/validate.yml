@@ -44,7 +44,7 @@ jobs:
                       if any(line.lstrip().startswith("%%") for line in lines):
                           print(f"Skipped cell magic: {path} cell {index}")
                           continue
-                      python_source = "\\n".join(
+                      python_source = chr(10).join(
                           line for line in lines
                           if not line.lstrip().startswith(("%", "!"))
                       )
