@@ -1,4 +1,4 @@
-# Colab Notebook Library — 2026-11-10
+# Golden Notebook Library — 2026-11-10
 
 Included notebooks: 61.
 
